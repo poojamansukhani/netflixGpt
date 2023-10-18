@@ -1,6 +1,8 @@
 import { useRef, useState } from "react"
 import Header from "./Header"
 import {validate} from "../utils/validation";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../utils/firebase";
 const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [errorMsg, setErrorMsg] = useState(null);
@@ -13,6 +15,25 @@ const Login = () => {
     const handleButtonClick = () =>{
        const errMsg = validate(email.current.value, password.current.value, name.current.value);   
        setErrorMsg(errMsg); 
+       //if any error msg is there retun this function
+       if(errMsg) return;
+      // if no error msg then proceed below code 
+        //create a new user in firebase  signin / signup
+        if(!errMsg){
+            createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    // Signed up 
+                    const user = userCredential.user;
+                    console.log(user);
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrorMsg(errorCode + errorMessage);
+            });
+        }else{
+            //Signin logic
+        }
     }
   return (
     <div>
