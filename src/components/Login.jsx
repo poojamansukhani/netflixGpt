@@ -6,11 +6,12 @@ const Login = () => {
     const [errorMsg, setErrorMsg] = useState(null);
     const email = useRef(null);
     const password = useRef(null);
+    const name = useRef(null);
     const toggleSignIn = () =>{
         setIsLogin(!isLogin);
     }
     const handleButtonClick = () =>{
-       const errMsg = validate(email.current.value, password.current.value);   
+       const errMsg = validate(email.current.value, password.current.value, name.current.value);   
        setErrorMsg(errMsg); 
     }
   return (
@@ -23,7 +24,7 @@ const Login = () => {
                 <form onSubmit={(e)=>(e.preventDefault())}>
                     {!isLogin && (
                         <div className="form-control mb-6">
-                            <input type="text" placeholder="Full Name" className="p-4 w-full bg-slate-600 rounded-lg"/>
+                            <input ref={name} type="text" placeholder="Full Name" className="p-4 w-full bg-slate-600 rounded-lg"/>
                         </div>
                     )}
                     <div className="form-control mb-6">
