@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import Header from "./Header"
 import {validate} from "../utils/validation";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../utils/firebase";
 const Login = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -13,13 +13,13 @@ const Login = () => {
         setIsLogin(!isLogin);
     }
     const handleButtonClick = () =>{
-       const errMsg = validate(email.current.value, password.current.value, name.current.value);   
+       const errMsg = validate(email.current.value, password.current.value);   
        setErrorMsg(errMsg); 
        //if any error msg is there retun this function
        if(errMsg) return;
       // if no error msg then proceed below code 
         //create a new user in firebase  signin / signup
-        if(!errMsg){
+        if(!isLogin){
             createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then((userCredential) => {
                     // Signed up 
@@ -29,10 +29,21 @@ const Login = () => {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    setErrorMsg(errorCode + errorMessage);
+                    setErrorMsg(errorCode + " - " +  errorMessage);
             });
         }else{
             //Signin logic
+            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                setErrorMsg(errorCode + " - " + errorMessage);
+            });
         }
     }
   return (
