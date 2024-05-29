@@ -11,7 +11,7 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useSelector(store => store.user);
   useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
           //Sign in case 
           const {uid, email, displayName, photoURL} = user;
@@ -25,6 +25,9 @@ const Header = () => {
           navigate("/");
         }
       });
+      //we need to unmount onAuthStateChanged otherwise so this provides sunsubscribe function we need to call in return 
+      //In user effect return we can unmount 
+      return () => unsubscribe()
 },[])
   const handleSignOut = () =>{
     signOut(auth).then(() => {
