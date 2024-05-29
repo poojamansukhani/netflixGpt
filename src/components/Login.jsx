@@ -3,11 +3,9 @@ import Header from "./Header"
 import {validate} from "../utils/validation";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 const Login = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isLogin, setIsLogin] = useState(true);
     const [errorMsg, setErrorMsg] = useState(null);
@@ -37,7 +35,6 @@ const Login = () => {
                         //because this is not udpated user in store so will disptach from auth
                         const {uid, email, displayName, photoURL} = auth.currentUser;
                         dispatch(addUser({uid:uid,email:email,displayName:displayName, photoURL:photoURL}));
-                        navigate("/Browse")
                       }).catch((error) => {
                         // An error occurred
                         setErrorMsg(error.message)
@@ -56,7 +53,6 @@ const Login = () => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-              navigate("/Browse")
             })
             .catch((error) => {
                 const errorCode = error.code;
