@@ -6,6 +6,7 @@ import { addUser, removeUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import {LOGO} from "../utils/constant";
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Header = () => {
   }
   return (
     <div className="absolute bg-gradient-to-b from-black px-8 py-2 w-[100%] z-10 flex justify-between">
-        <img src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png" alt="" className="w-[167px]"/>
+        <img src={LOGO} alt="" className="w-[167px]"/>
         {user && 
         <div className="flex align-center justify-center">
           <img src={user?.photoURL} alt="" className="w-12 h-12"/>

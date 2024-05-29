@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import {auth} from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import {USER_AVTAR} from "../utils/constant"
 const Login = () => {
     const dispatch = useDispatch();
     const [isLogin, setIsLogin] = useState(true);
@@ -29,7 +30,7 @@ const Login = () => {
                     const user = userCredential.user;
                     updateProfile(user, {
                         displayName: name.current.value, 
-                        photoURL: "https://avatars.githubusercontent.com/u/24942991?v=4"
+                        photoURL: USER_AVTAR,
                       }).then(() => {
                         // Profile updated!
                         //because this is not udpated user in store so will disptach from auth
