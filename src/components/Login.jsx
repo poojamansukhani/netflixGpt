@@ -40,7 +40,7 @@ const Login = () => {
                         // An error occurred
                         setErrorMsg(error.message)
                       });
-                    console.log(user);
+
                     
                 })
                 .catch((error) => {
