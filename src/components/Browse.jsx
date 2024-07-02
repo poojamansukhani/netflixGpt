@@ -7,7 +7,7 @@ import SecondaryContainer from "./SecondaryContainer"
 const Browse = () => {
   useNowPlayingMovies()
   return (
-    <div style={{paddingTop:"100px"}} className="px-8">
+    <div className="px-8">
         <Header/>
         <MainContainer/>
         <SecondaryContainer/>
