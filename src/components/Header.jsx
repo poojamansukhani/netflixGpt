@@ -15,6 +15,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(store => store.user);
+  const showGPTSearch = useSelector(store=>store.gpt.showGptSearch)
   useEffect(()=>{
     const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -54,12 +55,14 @@ const Header = () => {
         <img src={LOGO} alt="" className="w-[167px]"/>
         {user && 
         <div className="flex align-center justify-center">
+          {showGPTSearch && (
           <select className="p-2 bg-gray-900 text-white h-10 rounded-lg mr-5" onChange={handleLanguageChange} ref={langRef}>
             {supportedLang.map((lang)=>{
               return <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>
             })}
           </select>
-          <button className="px-4 bg-white text-black rounded-lg mr-5 h-10" onClick={handleShowHideGPT}>GPT Search </button>
+          )}
+          <button className="px-4 bg-white text-black rounded-lg mr-5 h-10" onClick={handleShowHideGPT}> {showGPTSearch ? "Home" : "GPT Search"} </button>
           <img src={user?.photoURL} alt="" className="w-12 h-12"/>
           <button className="text-white" onClick={handleSignOut}>Sign Out</button>
         </div>
