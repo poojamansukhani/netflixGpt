@@ -19,3 +19,4 @@ export const supportedLang = [
     identifier:"spanish", name:"Spanish"
   }
 ]
+export const OPENAI_API_KEY = "//";
