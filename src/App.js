@@ -4,7 +4,10 @@ import appStore from "./utils/appStore";
 function App() {
   return (
     <Provider store={appStore}>
-      <Body/>
+      <div data-testid="app-component">
+        <h1>Hi</h1>
+       <Body/>
+      </div>
     </Provider>
   );
 }
