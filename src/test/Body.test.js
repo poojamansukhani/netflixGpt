@@ -6,10 +6,12 @@ jest.mock('firebase/auth', ()=>{
 })
 jest.mock('../components/Login', ()=>()=><div>Login</div>);
 jest.mock('../components/Browse', ()=>()=><div>Browse</div>);
+//screen.logTestingPlaygroundURL();
 describe('Body Component', () => {
     afterEach(() => {
         jest.clearAllMocks();
       });
+      //debugger;
     const appRouter = createMemoryRouter([
         {
             path:'/',
